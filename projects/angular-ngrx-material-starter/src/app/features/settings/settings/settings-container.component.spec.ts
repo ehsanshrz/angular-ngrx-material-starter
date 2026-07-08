@@ -2,7 +2,6 @@ import { By } from '@angular/platform-browser';
 import { MatLegacySlideToggle as MatSlideToggle } from '@angular/material/legacy-slide-toggle';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { MemoizedSelector } from '@ngrx/store';
 import {
@@ -43,7 +42,6 @@ describe('SettingsComponent', () => {
           FontAwesomeModule,
           SharedModule,
           NoopAnimationsModule,
-          TranslateModule.forRoot()
         ],
         providers: [provideMockStore()],
         declarations: [SettingsContainerComponent]

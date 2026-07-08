@@ -5,7 +5,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { RtlSupportDirective } from './rtl-support.directive';
 import { BehaviorSubject, of } from 'rxjs';
@@ -27,12 +27,12 @@ describe('RtlSupportDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
   let des: DebugElement[]; // the three elements w/ the directive
   let bareH2: DebugElement; // the <h2> w/o the directive
-  let languageSubject;
+  let languageSubject: BehaviorSubject<{ lang: string }>;
 
   beforeEach(() => {
     languageSubject = new BehaviorSubject({ lang: 'he' });
     fixture = TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, TranslateModule.forRoot()],
+      imports: [NoopAnimationsModule],
       declarations: [RtlSupportDirective, TestComponent],
       providers: [
         {

@@ -24,7 +24,7 @@ import { SharedModule } from '../../shared.module';
   standalone: false
 })
 class HostComponent {
-  newValue: string;
+  newValue!: string;
   onKeyEvent(eventData: any) {}
 }
 
