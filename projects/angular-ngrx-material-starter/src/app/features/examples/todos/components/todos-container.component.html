@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="row">
-    <ng-container *ngIf="todos$ | async as todos">
+    @if (todos$ | async; as todos) {
       <div class="col-md-6">
         <h2 class="dotos-title" rtl>
           <span>{{ 'anms.examples.todos.list' | translate }}</span>
@@ -46,38 +46,40 @@
             <mat-chip [disabled]=true [ngPlural]="todos.length">
               {{ 'anms.examples.todos.filter.description' | translate }}
               <ng-template ngPluralCase="other">{{ todos.length }} {{ 'anms.examples.todos.filter.items' |
-                translate }}</ng-template>
+              translate }}</ng-template>
               <ng-template ngPluralCase="=1">{{ 'anms.examples.todos.filter.one' | translate }} {{
-                'anms.examples.todos.filter.item' | translate }}</ng-template>
+              'anms.examples.todos.filter.item' | translate }}</ng-template>
               <ng-template ngPluralCase="=0">{{ 'anms.examples.todos.filter.none' | translate }} {{
-                'anms.examples.todos.filter.items' | translate }}</ng-template>
+              'anms.examples.todos.filter.items' | translate }}</ng-template>
             </mat-chip>
           </mat-chip-list>
         </h2>
-        <mat-card *ngFor="let todo of todos" class="todo" [ngClass]="routeAnimationsElements">
-          <mat-checkbox class="todo-done" [checked]="todo.done" (change)="onToggleTodo(todo)"></mat-checkbox>
-          <span class="todo-label" [ngClass]="{ 'todo-label-done': todo.done }" (click)="onToggleTodo(todo)">
-            &nbsp;{{todo.name}}&nbsp;
-          </span>
-        </mat-card>
+        @for (todo of todos; track todo) {
+          <mat-card class="todo" [ngClass]="routeAnimationsElements">
+            <mat-checkbox class="todo-done" [checked]="todo.done" (change)="onToggleTodo(todo)"></mat-checkbox>
+            <span class="todo-label" [ngClass]="{ 'todo-label-done': todo.done }" (click)="onToggleTodo(todo)">
+              &nbsp;{{todo.name}}&nbsp;
+            </span>
+          </mat-card>
+        }
         <br>
-        <br>
-      </div>
-  </ng-container>
-    <div class="offset-md-1 col-md-5" [ngClass]="routeAnimationsElements" rtl>
-      <h2>{{ 'anms.examples.todos.example' | translate }}</h2>
-      <p>
-        {{ 'anms.examples.todos.text1' | translate }}
-        <code>{{ 'anms.examples.todos.text2' | translate }}</code>
-        {{ 'anms.examples.todos.text3' | translate }}
-      </p>
-      <p>
-        {{ 'anms.examples.todos.text4' | translate }} <code>ngrx</code>
-        {{ 'anms.examples.todos.text5' | translate }}
-      </p>
-      <p>{{ 'anms.examples.todos.text6' | translate }}</p>
-      <br>
-    </div>
-  </div>
+          <br>
+          </div>
+        }
+        <div class="offset-md-1 col-md-5" [ngClass]="routeAnimationsElements" rtl>
+          <h2>{{ 'anms.examples.todos.example' | translate }}</h2>
+          <p>
+            {{ 'anms.examples.todos.text1' | translate }}
+            <code>{{ 'anms.examples.todos.text2' | translate }}</code>
+            {{ 'anms.examples.todos.text3' | translate }}
+          </p>
+          <p>
+            {{ 'anms.examples.todos.text4' | translate }} <code>ngrx</code>
+            {{ 'anms.examples.todos.text5' | translate }}
+          </p>
+          <p>{{ 'anms.examples.todos.text6' | translate }}</p>
+          <br>
+          </div>
+        </div>
 
-</div>
+      </div>

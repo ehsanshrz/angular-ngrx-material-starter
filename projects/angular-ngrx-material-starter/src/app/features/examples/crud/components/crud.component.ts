@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,10 +13,11 @@ import { actionBooksDeleteOne, actionBooksUpsertOne } from '../books.actions';
 import { selectSelectedBook, selectAllBooks } from '../books.selectors';
 
 @Component({
-  selector: 'anms-crud',
-  templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'anms-crud',
+    templateUrl: './crud.component.html',
+    styleUrls: ['./crud.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CrudComponent {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
@@ -29,7 +30,7 @@ export class CrudComponent {
 
   constructor(
     public store: Store<State>,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     private router: Router
   ) {}
 

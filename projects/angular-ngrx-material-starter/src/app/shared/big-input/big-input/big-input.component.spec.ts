@@ -1,4 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -15,7 +19,9 @@ import { SharedModule } from '../../shared.module';
       (keyup.escape)="onKeyEvent($event)"
     >
     </anms-big-input>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 class HostComponent {
   newValue: string;

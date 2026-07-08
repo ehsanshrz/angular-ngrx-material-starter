@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf, ErrorHandler } from '@angular/core';
 import {
-  HttpClientModule,
   HttpClient,
-  HTTP_INTERCEPTORS
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr
 } from '@angular/common/http';
 import {
   StoreRouterConnectingModule,
@@ -20,13 +22,13 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 
 import { environment } from '../../environments/environment';
 
@@ -58,7 +60,7 @@ import {
   selectEffectiveTheme,
   selectSettingsStickyHeader
 } from './settings/settings.selectors';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import {
   faCog,
   faBars,
@@ -103,12 +105,10 @@ export function httpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  imports: [
+  declarations: [],
+  exports: [
     // angular
-    CommonModule,
-    HttpClientModule,
     FormsModule,
-
     // material
     MatSidenavModule,
     MatToolbarModule,
@@ -119,7 +119,24 @@ export function httpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatSnackBarModule,
     MatButtonModule,
-
+    // 3rd party
+    FontAwesomeModule,
+    TranslateModule
+  ],
+  imports: [
+    // angular
+    CommonModule,
+    FormsModule,
+    // material
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatButtonModule,
     // ngrx
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot(),
@@ -133,7 +150,6 @@ export function httpLoaderFactory(http: HttpClient) {
       : StoreDevtoolsModule.instrument({
           name: 'Angular NgRx Material Starter'
         }),
-
     // 3rd party
     FontAwesomeModule,
     TranslateModule.forRoot({
@@ -144,30 +160,11 @@ export function httpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  declarations: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
-  ],
-  exports: [
-    // angular
-    FormsModule,
-
-    // material
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule,
-    MatMenuModule,
-    MatIconModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatButtonModule,
-
-    // 3rd party
-    FontAwesomeModule,
-    TranslateModule
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
   ]
 })
 export class CoreModule {

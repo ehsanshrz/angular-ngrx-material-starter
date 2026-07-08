@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -8,6 +8,11 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ExamplesComponent } from './examples.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr
+} from '@angular/common/http';
 
 describe('ExamplesComponent', () => {
   let component: ExamplesComponent;
@@ -16,8 +21,8 @@ describe('ExamplesComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
+        declarations: [ExamplesComponent],
         imports: [
-          HttpClientTestingModule,
           SharedModule,
           NoopAnimationsModule,
           RouterTestingModule,
@@ -30,9 +35,10 @@ describe('ExamplesComponent', () => {
                 isAuthenticated: false
               }
             }
-          })
-        ],
-        declarations: [ExamplesComponent]
+          }),
+          provideHttpClient(withXhr(), withInterceptorsFromDi()),
+          provideHttpClientTesting()
+        ]
       }).compileComponents();
     })
   );

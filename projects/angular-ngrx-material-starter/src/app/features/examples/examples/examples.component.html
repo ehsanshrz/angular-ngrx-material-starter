@@ -1,23 +1,26 @@
 <nav mat-tab-nav-bar class="d-none d-sm-flex">
-  <a mat-tab-link
-     *ngFor="let e of examples"
-     [routerLink]="e.link"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive"
-     [disabled]="e.auth && !(isAuthenticated$ | async)">
-    {{e.label | translate}}
-  </a>
+  @for (e of examples; track e) {
+    <a mat-tab-link
+      [routerLink]="e.link"
+      routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive"
+      [disabled]="e.auth && !(isAuthenticated$ | async)">
+      {{e.label | translate}}
+    </a>
+  }
 </nav>
 
 <nav class="nav-responsive d-sm-none d-flex justify-content-center">
-    <mat-select [placeholder]="'anms.examples.title' | translate" [value]="'todos'">
-      <mat-option *ngFor="let e of examples"
+  <mat-select [placeholder]="'anms.examples.title' | translate" [value]="'todos'">
+    @for (e of examples; track e) {
+      <mat-option
         [value]="e"
         [routerLink]="e.link"
         [disabled]="e.auth && !(isAuthenticated$ | async)">
-          {{e.label | translate}}
+        {{e.label | translate}}
       </mat-option>
-    </mat-select>
+    }
+  </mat-select>
 </nav>
 
 <div [@routeAnimations]="o.isActivated && o.activatedRoute.routeConfig.path">

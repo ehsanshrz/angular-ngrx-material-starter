@@ -8,92 +8,113 @@
   </div>
   <div class="row" [ngClass]="routeAnimationsElements" rtl>
     <div class="col-md-12 col-lg-6">
-      <ng-container *ngIf="users$ | async as users">
-        <mat-card
-          *ngFor="let user of users; trackBy: trackByUserId"
-          [ngClass]="routeAnimationsElements"
-        >
-          <mat-card-header>
-            <img
-              mat-card-avatar
-              src="https://source.unsplash.com/200x200/?{{ user.username }}"
-            />
-            <mat-card-title>{{ user.name }} {{ user.surname }}</mat-card-title>
-            <mat-card-subtitle>@{{ user.username }}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-actions>
-            <button mat-button (click)="editUser(user)">Edit</button>
-            <button mat-button (click)="removeUser(user.id)">Delete</button>
-          </mat-card-actions>
-        </mat-card>
-      </ng-container>
-      <ng-container *ngIf="isEdit$ | async as isEdit">
-      <h2 *ngIf="!isEdit.value">{{'anms.examples.simple-state-management.form.add.title' | translate}}</h2>
-      <h2 *ngIf="isEdit.value">{{'anms.examples.simple-state-management.form.edit.title' | translate}}</h2>
-      <form [formGroup]="userForm" #userFormRef="ngForm" (ngSubmit)="onSubmit(userFormRef)">
-        <mat-form-field>
-          <input
-            matInput
+      @if (users$ | async; as users) {
+        @for (user of users; track trackByUserId($index, user)) {
+          <mat-card
+            [ngClass]="routeAnimationsElements"
+            >
+            <mat-card-header>
+              <img
+                mat-card-avatar
+                src="https://source.unsplash.com/200x200/?{{ user.username }}"
+                />
+              <mat-card-title>{{ user.name }} {{ user.surname }}</mat-card-title>
+              <mat-card-subtitle>&#64;{{ user.username }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-button (click)="editUser(user)">Edit</button>
+              <button mat-button (click)="removeUser(user.id)">Delete</button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      }
+      @if (isEdit$ | async; as isEdit) {
+        @if (!isEdit.value) {
+          <h2>{{'anms.examples.simple-state-management.form.add.title' | translate}}</h2>
+        }
+        @if (isEdit.value) {
+          <h2>{{'anms.examples.simple-state-management.form.edit.title' | translate}}</h2>
+        }
+        <form [formGroup]="userForm" #userFormRef="ngForm" (ngSubmit)="onSubmit(userFormRef)">
+          <mat-form-field>
+            <input
+              matInput
             [placeholder]="
               ('anms.examples.simple-state-management.username' | translate) + '*'
             "
-            formControlName="username"
-          />
-          <mat-error *ngIf="userForm.get('username').hasError('minlength')">
-            {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('username').errors.minlength.requiredLength} }}
-          </mat-error>
-          <mat-error *ngIf="userForm.get('username').hasError('required')">
-            {{'anms.examples.simple-state-management.validator.required' | translate}}
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
+              formControlName="username"
+              />
+            @if (userForm.get('username').hasError('minlength')) {
+              <mat-error>
+                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('username').errors.minlength.requiredLength} }}
+              </mat-error>
+            }
+            @if (userForm.get('username').hasError('required')) {
+              <mat-error>
+                {{'anms.examples.simple-state-management.validator.required' | translate}}
+              </mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
             [placeholder]="
               ('anms.examples.simple-state-management.name' | translate) + '*'
             "
-            formControlName="name"
-          />
-          <mat-error *ngIf="userForm.get('name').hasError('minlength')">
-            {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('name').errors.minlength.requiredLength} }}
-          </mat-error>
-          <mat-error *ngIf="userForm.get('name').hasError('required')">
-            {{'anms.examples.simple-state-management.validator.required' | translate}}
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
+              formControlName="name"
+              />
+            @if (userForm.get('name').hasError('minlength')) {
+              <mat-error>
+                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('name').errors.minlength.requiredLength} }}
+              </mat-error>
+            }
+            @if (userForm.get('name').hasError('required')) {
+              <mat-error>
+                {{'anms.examples.simple-state-management.validator.required' | translate}}
+              </mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
             [placeholder]="
               ('anms.examples.simple-state-management.surname' | translate) + '*'
             "
-            formControlName="surname"
-          />
-          <mat-error *ngIf="userForm.get('surname').hasError('minlength')">
-            {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('surname').errors.minlength.requiredLength} }}
-          </mat-error>
-          <mat-error *ngIf="userForm.get('surname').hasError('required')">
-            {{'anms.examples.simple-state-management.validator.required' | translate}}
-          </mat-error>
-        </mat-form-field>
-        <div>
-          <button *ngIf="!isEdit.value" type="submit" mat-raised-button color="primary">
-            {{'anms.examples.simple-state-management.form.add.submit' | translate}}
-          </button>
-          <button *ngIf="isEdit.value" type="submit" mat-raised-button color="primary">
-            {{'anms.examples.simple-state-management.form.edit.submit' | translate}}
-          </button>
-          <button type="reset" mat-button color="warn">Reset</button>
-        </div>
-      </form>
-      </ng-container>
+              formControlName="surname"
+              />
+            @if (userForm.get('surname').hasError('minlength')) {
+              <mat-error>
+                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('surname').errors.minlength.requiredLength} }}
+              </mat-error>
+            }
+            @if (userForm.get('surname').hasError('required')) {
+              <mat-error>
+                {{'anms.examples.simple-state-management.validator.required' | translate}}
+              </mat-error>
+            }
+          </mat-form-field>
+          <div>
+            @if (!isEdit.value) {
+              <button type="submit" mat-raised-button color="primary">
+                {{'anms.examples.simple-state-management.form.add.submit' | translate}}
+              </button>
+            }
+            @if (isEdit.value) {
+              <button type="submit" mat-raised-button color="primary">
+                {{'anms.examples.simple-state-management.form.edit.submit' | translate}}
+              </button>
+            }
+            <button type="reset" mat-button color="warn">Reset</button>
+          </div>
+        </form>
+      }
     </div>
     <div class="col-md-12 col-lg-6" [ngClass]="routeAnimationsElements">
       <p>{{ 'anms.examples.simple-state-management.text1' | translate }}</p>
       <p>{{ 'anms.examples.simple-state-management.text2' | translate }}</p>
       <p>
         {{ 'anms.examples.simple-state-management.text3' | translate }}
-        <code>@angular-extensions/model</code>
+        <code>&#64;angular-extensions/model</code>
       </p>
       <p>{{ 'anms.examples.simple-state-management.text4' | translate }}</p>
       <p>
@@ -104,8 +125,8 @@
       </p>
       <p>
         {{ 'anms.examples.simple-state-management.text7' | translate }}
-        <code>ng add @angular-extensions/model</code> &
-        <code>ng g @angular-extensions/model:model examples/user --items</code>
+        <code>ng add &#64;angular-extensions/model</code> &
+        <code>ng g &#64;angular-extensions/model:model examples/user --items</code>
       </p>
     </div>
   </div>

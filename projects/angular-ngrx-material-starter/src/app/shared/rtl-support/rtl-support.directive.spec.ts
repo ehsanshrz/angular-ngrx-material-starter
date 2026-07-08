@@ -1,5 +1,9 @@
 import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -13,7 +17,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     <h2 rtl>The Default (Gray)</h2>
     <h2>No Highlight</h2>
     <div rtl>Vasili</div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 class TestComponent {}
 
