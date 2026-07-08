@@ -21,7 +21,7 @@
             <mat-form-field class="col" [ngClass]="routeAnimationsElements">
               <input matInput placeholder="{{ 'anms.examples.form.placeholder1' | translate }}"
                 formControlName="username">
-              @if (form.get('username').invalid) {
+              @if (form.get('username')?.invalid) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder1' | translate }}
                   {{ 'anms.examples.form.error1' | translate }}
@@ -31,7 +31,7 @@
             <mat-form-field class="col" [ngClass]="routeAnimationsElements">
               <input matInput type="password" placeholder="{{ 'anms.examples.form.placeholder2' | translate }}"
                 formControlName="password">
-              @if (form.get('password').invalid) {
+              @if (form.get('password')?.invalid) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder2' | translate }}
                   {{ 'anms.examples.form.error1' | translate }}
@@ -43,13 +43,13 @@
             <mat-form-field class="col" [ngClass]="routeAnimationsElements">
               <input matInput placeholder="{{ 'anms.examples.form.placeholder3' | translate }}"
                 formControlName="email" type="email">
-              @if (form.get('email').hasError('required')) {
+              @if (form.get('email')?.hasError('required')) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder3' | translate }}
                   {{ 'anms.examples.form.error1' | translate }}
                 </mat-error>
               }
-              @if (form.get('email').hasError('email')) {
+              @if (form.get('email')?.hasError('email')) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder3' | translate }}
                 {{ 'anms.examples.form.error2' | translate }}</mat-error>
@@ -61,7 +61,7 @@
               <input matInput formControlName="birthday" [matDatepicker]="picker" placeholder="{{ 'anms.examples.form.placeholder5' | translate }}">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              @if (form.get('birthday').hasError('required')) {
+              @if (form.get('birthday')?.hasError('required')) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder5' | translate }}
                   {{ 'anms.examples.form.error1' | translate }}
@@ -74,21 +74,21 @@
               <textarea matInput placeholder="{{ 'anms.examples.form.placeholder4' | translate }}"
                 formControlName="description" minlength="10" maxlength="1000" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10"></textarea>
-              <mat-hint align="end">{{form.get('description').value?.length}} /
+              <mat-hint align="end">{{form.get('description')?.value?.length}} /
               1000</mat-hint>
-              @if (form.get('description').hasError('required')) {
+              @if (form.get('description')?.hasError('required')) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder4' | translate }}
                   {{ 'anms.examples.form.error1' | translate }}
                 </mat-error>
               }
-              @if (form.get('description').hasError('minlength')) {
+              @if (form.get('description')?.hasError('minlength')) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder4' | translate }}
                   {{ 'anms.examples.form.error3' | translate }} 10
                 </mat-error>
               }
-              @if (form.get('description').hasError('maxlength')) {
+              @if (form.get('description')?.hasError('maxlength')) {
                 <mat-error>
                   {{ 'anms.examples.form.placeholder4' | translate }}
                   {{ 'anms.examples.form.error4' | translate }} 1000
@@ -112,7 +112,7 @@
               <button mat-raised-button color="primary" [ngClass]="routeAnimationsElements">
                 {{ 'anms.examples.form.send' | translate }}
               </button>
-              <button type="button" mat-raised-button color="accent" [disabled]="form.get('autosave').value"
+              <button type="button" mat-raised-button color="accent" [disabled]="form.get('autosave')?.value"
                 [ngClass]="routeAnimationsElements" (click)="save()">
                 {{ 'anms.examples.form.save' | translate }}
               </button>

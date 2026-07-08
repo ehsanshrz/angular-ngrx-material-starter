@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap, withLatestFrom } from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ export class BooksEffects {
     () =>
       this.actions$.pipe(
         ofType(actionBooksUpsertOne, actionBooksDeleteOne),
-        withLatestFrom(this.store.pipe(select(selectBooks))),
+        withLatestFrom(this.store.select(selectBooks)),
         tap(([actions, booksState]) =>
           this.localStorageService.setItem(BOOKS_KEY, booksState)
         )

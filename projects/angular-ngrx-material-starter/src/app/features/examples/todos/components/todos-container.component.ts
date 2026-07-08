@@ -1,8 +1,8 @@
 import { selectTodosFilter } from './../todos.selectors';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { select, Store } from '@ngrx/store';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -11,6 +11,7 @@ import {
   NotificationService
 } from '../../../../core/core.module';
 
+import { State } from '../../examples.state';
 import * as todoActions from '../todos.actions';
 import { Todo, TodosFilter } from '../todos.model';
 import { selectTodos, selectRemoveDoneTodosDisabled } from '../todos.selectors';
@@ -24,24 +25,22 @@ import { selectTodos, selectRemoveDoneTodosDisabled } from '../todos.selectors';
 })
 export class TodosContainerComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
-  todos$: Observable<Todo[]>;
-  filter$: Observable<TodosFilter>;
-  removeDoneDisabled$: Observable<boolean>;
+  todos$!: Observable<Todo[]>;
+  filter$!: Observable<TodosFilter>;
+  removeDoneDisabled$!: Observable<boolean>;
   newTodo = '';
 
   constructor(
-    public store: Store,
+    public store: Store<State>,
     public snackBar: MatSnackBar,
     public translateService: TranslateService,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
-    this.todos$ = this.store.pipe(select(selectTodos));
-    this.filter$ = this.store.pipe(select(selectTodosFilter));
-    this.removeDoneDisabled$ = this.store.pipe(
-      select(selectRemoveDoneTodosDisabled)
-    );
+    this.todos$ = this.store.select(selectTodos);
+    this.filter$ = this.store.select(selectTodosFilter);
+    this.removeDoneDisabled$ = this.store.select(selectRemoveDoneTodosDisabled);
   }
 
   get isAddTodoDisabled() {

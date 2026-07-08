@@ -8,12 +8,11 @@ import { Subscription } from 'rxjs';
     standalone: false
 })
 export class RtlSupportDirective implements OnInit, OnDestroy {
-  private subscription: Subscription;
+  private subscription!: Subscription;
   constructor(private el: ElementRef, public translate: TranslateService) {
-    el.nativeElement.style.textAlign =
-      translate.currentLang === 'he' ? 'right' : 'left';
-    el.nativeElement.style.direction =
-      translate.currentLang === 'he' ? 'rtl' : 'ltr';
+    const lang = translate.currentLang();
+    el.nativeElement.style.textAlign = lang === 'he' ? 'right' : 'left';
+    el.nativeElement.style.direction = lang === 'he' ? 'rtl' : 'ltr';
   }
   ngOnInit() {
     this.subscription = this.translate.onLangChange.subscribe(

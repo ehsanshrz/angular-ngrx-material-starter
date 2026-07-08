@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Validators, UntypedFormBuilder } from '@angular/forms';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { filter, debounceTime, take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import {
 } from '../../../../core/core.module';
 
 import { actionFormReset, actionFormUpdate } from '../form.actions';
+import { State } from '../../examples.state';
 import { selectFormState } from '../form.selectors';
 import { Form } from '../form.model';
 
@@ -42,11 +43,11 @@ export class FormComponent implements OnInit {
     rating: [0, Validators.required]
   });
 
-  formValueChanges$: Observable<Form>;
+  formValueChanges$!: Observable<Form>;
 
   constructor(
     private fb: UntypedFormBuilder,
-    private store: Store,
+    private store: Store<State>,
     private translate: TranslateService,
     private notificationService: NotificationService
   ) {}
@@ -57,7 +58,8 @@ export class FormComponent implements OnInit {
       filter((form: Form) => form.autosave)
     );
     this.store
-      .pipe(select(selectFormState), take(1))
+      .select(selectFormState)
+      .pipe(take(1))
       .subscribe((form) => this.form.patchValue(form.form));
   }
 

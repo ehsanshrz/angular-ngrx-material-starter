@@ -1,4 +1,4 @@
-import { Store, select } from '@ngrx/store';
+import { Store} from '@ngrx/store';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { State } from '../examples.state';
     standalone: false
 })
 export class ExamplesComponent implements OnInit {
-  isAuthenticated$: Observable<boolean>;
+  isAuthenticated$!: Observable<boolean>;
 
   examples = [
     { link: 'todos', label: 'anms.examples.menu.todos' },
@@ -38,6 +38,6 @@ export class ExamplesComponent implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
-    this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 }

@@ -44,12 +44,12 @@
             "
               formControlName="username"
               />
-            @if (userForm.get('username').hasError('minlength')) {
+            @if (userForm.get('username')?.hasError('minlength')) {
               <mat-error>
-                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('username').errors.minlength.requiredLength} }}
+                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('username')?.errors.minlength.requiredLength} }}
               </mat-error>
             }
-            @if (userForm.get('username').hasError('required')) {
+            @if (userForm.get('username')?.hasError('required')) {
               <mat-error>
                 {{'anms.examples.simple-state-management.validator.required' | translate}}
               </mat-error>
@@ -63,12 +63,12 @@
             "
               formControlName="name"
               />
-            @if (userForm.get('name').hasError('minlength')) {
+            @if (userForm.get('name')?.hasError('minlength')) {
               <mat-error>
-                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('name').errors.minlength.requiredLength} }}
+                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('name')?.errors.minlength.requiredLength} }}
               </mat-error>
             }
-            @if (userForm.get('name').hasError('required')) {
+            @if (userForm.get('name')?.hasError('required')) {
               <mat-error>
                 {{'anms.examples.simple-state-management.validator.required' | translate}}
               </mat-error>
@@ -82,12 +82,12 @@
             "
               formControlName="surname"
               />
-            @if (userForm.get('surname').hasError('minlength')) {
+            @if (userForm.get('surname')?.hasError('minlength')) {
               <mat-error>
-                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('surname').errors.minlength.requiredLength} }}
+                {{'anms.examples.simple-state-management.validator.minlength' | translate:{minlength: userForm.get('surname')?.errors.minlength.requiredLength} }}
               </mat-error>
             }
-            @if (userForm.get('surname').hasError('required')) {
+            @if (userForm.get('surname')?.hasError('required')) {
               <mat-error>
                 {{'anms.examples.simple-state-management.validator.required' | translate}}
               </mat-error>

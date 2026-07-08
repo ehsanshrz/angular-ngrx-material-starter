@@ -1,7 +1,7 @@
 import { ActivationEnd, Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, merge, of } from 'rxjs';
@@ -67,7 +67,7 @@ export class SettingsEffects {
           actionSettingsChangeStickyHeader,
           actionSettingsChangeTheme
         ),
-        withLatestFrom(this.store.pipe(select(selectSettingsState))),
+        withLatestFrom(this.store.select(selectSettingsState)),
         tap(([action, settings]) =>
           this.localStorageService.setItem(SETTINGS_KEY, settings)
         )
@@ -88,8 +88,8 @@ export class SettingsEffects {
       ).pipe(
         withLatestFrom(
           combineLatest([
-            this.store.pipe(select(selectPageAnimations)),
-            this.store.pipe(select(selectElementsAnimations))
+            this.store.select(selectPageAnimations),
+            this.store.select(selectElementsAnimations)
           ])
         ),
         tap(([action, [pageAnimations, elementsAnimations]]) =>
@@ -105,7 +105,7 @@ export class SettingsEffects {
   updateTheme = createEffect(
     () =>
       merge(INIT, this.actions$.pipe(ofType(actionSettingsChangeTheme))).pipe(
-        withLatestFrom(this.store.pipe(select(selectEffectiveTheme))),
+        withLatestFrom(this.store.select(selectEffectiveTheme)),
         tap(([action, effectiveTheme]) => {
           const classList = this.overlayContainer.getContainerElement()
             .classList;
@@ -123,8 +123,7 @@ export class SettingsEffects {
 
   setTranslateServiceLanguage = createEffect(
     () =>
-      this.store.pipe(
-        select(selectSettingsLanguage),
+      this.store.select(selectSettingsLanguage).pipe(
         distinctUntilChanged(),
         tap((language) => this.translateService.use(language))
       ),

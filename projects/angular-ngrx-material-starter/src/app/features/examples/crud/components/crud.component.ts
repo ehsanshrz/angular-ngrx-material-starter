@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { Router } from '@angular/router';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../../core/core.module';
@@ -23,10 +23,10 @@ export class CrudComponent {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
 
   bookFormGroup = this.fb.group(CrudComponent.createBook());
-  books$: Observable<Book[]> = this.store.pipe(select(selectAllBooks));
-  selectedBook$: Observable<Book> = this.store.pipe(select(selectSelectedBook));
+  books$: Observable<Book[]> = this.store.select(selectAllBooks);
+  selectedBook$: Observable<Book | undefined> = this.store.select(selectSelectedBook);
 
-  isEditing: boolean;
+  isEditing!: boolean;
 
   constructor(
     public store: Store<State>,

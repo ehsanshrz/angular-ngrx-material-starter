@@ -1,10 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { LazyElementsModule } from '@angular-extensions/elements';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideChildTranslateService, provideTranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader, provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { SharedModule } from '../../shared/shared.module';
 import { environment } from '../../../environments/environment';
@@ -30,14 +29,6 @@ import { UserComponent } from './simple-state-management/components/user.compone
 import { UserService } from './simple-state-management/user.service';
 import { ElementsComponent } from './elements/elements.component';
 
-export function httpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(
-    http,
-    `${environment.i18nPrefix}/assets/i18n/examples/`,
-    '.json'
-  );
-}
-
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -45,14 +36,7 @@ export function httpLoaderFactory(http: HttpClient) {
     SharedModule,
     ExamplesRoutingModule,
     StoreModule.forFeature(FEATURE_NAME, reducers),
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient]
-      },
-      isolate: true
-    }),
+
     EffectsModule.forFeature([
       ExamplesEffects,
       TodosEffects,
@@ -74,7 +58,17 @@ export function httpLoaderFactory(http: HttpClient) {
     UserComponent,
     ElementsComponent
   ],
-  providers: [StockMarketService, UserService]
+  providers: [
+    StockMarketService,
+    UserService,
+    provideChildTranslateService({
+      loader: provideTranslateLoader(TranslateHttpLoader)
+    }),
+    ...provideTranslateHttpLoader({
+      prefix: `${environment.i18nPrefix}/assets/i18n/examples/`,
+      suffix: '.json'
+    })
+  ]
 })
 export class ExamplesModule {
   constructor() {}

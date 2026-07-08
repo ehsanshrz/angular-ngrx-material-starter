@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -19,12 +19,12 @@ import { State } from '../../examples.state';
 })
 export class StockMarketContainerComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
-  stocks$: Observable<StockMarketState>;
+  stocks$!: Observable<StockMarketState>;
 
   constructor(public store: Store<State>) {}
 
   ngOnInit() {
-    this.stocks$ = this.store.pipe(select(selectStockMarket));
+    this.stocks$ = this.store.select(selectStockMarket);
     this.stocks$
       .pipe(take(1))
       .subscribe((stocks) => this.onSymbolChange(stocks.symbol));

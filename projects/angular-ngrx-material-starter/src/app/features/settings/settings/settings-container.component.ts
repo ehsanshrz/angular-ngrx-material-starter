@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store} from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../core/core.module';
@@ -12,7 +12,7 @@ import {
   actionSettingsChangeTheme,
   actionSettingsChangeStickyHeader
 } from '../../../core/settings/settings.actions';
-import { SettingsState, State } from '../../../core/settings/settings.model';
+import { SettingsState, State, Language } from '../../../core/settings/settings.model';
 import { selectSettings } from '../../../core/settings/settings.selectors';
 
 @Component({
@@ -24,7 +24,7 @@ import { selectSettings } from '../../../core/settings/settings.selectors';
 })
 export class SettingsContainerComponent implements OnInit {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
-  settings$: Observable<SettingsState>;
+  settings$!: Observable<SettingsState>;
 
   themes = [
     { value: 'DEFAULT-THEME', label: 'blue' },
@@ -47,30 +47,30 @@ export class SettingsContainerComponent implements OnInit {
   constructor(private store: Store<State>) {}
 
   ngOnInit() {
-    this.settings$ = this.store.pipe(select(selectSettings));
+    this.settings$ = this.store.select(selectSettings);
   }
 
-  onLanguageSelect({ value: language }) {
-    this.store.dispatch(actionSettingsChangeLanguage({ language }));
+  onLanguageSelect({ value: language }: { value: string }) {
+    this.store.dispatch(actionSettingsChangeLanguage({ language: language as Language }));
   }
 
-  onThemeSelect({ value: theme }) {
+  onThemeSelect({ value: theme }: { value: string }) {
     this.store.dispatch(actionSettingsChangeTheme({ theme }));
   }
 
-  onAutoNightModeToggle({ checked: autoNightMode }) {
+  onAutoNightModeToggle({ checked: autoNightMode }: { checked: boolean }) {
     this.store.dispatch(actionSettingsChangeAutoNightMode({ autoNightMode }));
   }
 
-  onStickyHeaderToggle({ checked: stickyHeader }) {
+  onStickyHeaderToggle({ checked: stickyHeader }: { checked: boolean }) {
     this.store.dispatch(actionSettingsChangeStickyHeader({ stickyHeader }));
   }
 
-  onPageAnimationsToggle({ checked: pageAnimations }) {
+  onPageAnimationsToggle({ checked: pageAnimations }: { checked: boolean }) {
     this.store.dispatch(actionSettingsChangeAnimationsPage({ pageAnimations }));
   }
 
-  onElementsAnimationsToggle({ checked: elementsAnimations }) {
+  onElementsAnimationsToggle({ checked: elementsAnimations }: { checked: boolean }) {
     this.store.dispatch(
       actionSettingsChangeAnimationsElements({ elementsAnimations })
     );
