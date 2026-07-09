@@ -29,8 +29,8 @@
         </div>
         <div class="icon-form-field">
            <mat-icon color="accent"><fa-icon icon="bars" color="accent"></fa-icon></mat-icon>
-           <mat-placeholder>{{ 'anms.settings.themes.sticky-header' | translate }}
-           </mat-placeholder>
+           <span>{{ 'anms.settings.themes.sticky-header' | translate }}
+           </span>
            <mat-slide-toggle
              [checked]="settings.stickyHeader"
              (change)="onStickyHeaderToggle($event)">
@@ -56,8 +56,8 @@
         </div>
         <div class="icon-form-field">
           <mat-icon color="accent"><fa-icon icon="lightbulb" color="accent"></fa-icon></mat-icon>
-          <mat-placeholder>{{ 'anms.settings.themes.night-mode' | translate }}
-          </mat-placeholder>
+          <span>{{ 'anms.settings.themes.night-mode' | translate }}
+          </span>
           <mat-slide-toggle
             [checked]="settings.autoNightMode"
             (change)="onAutoNightModeToggle($event)">
@@ -68,8 +68,8 @@
         <h2>{{ 'anms.settings.animations.title' | translate }}</h2>
         <div class="icon-form-field">
           <mat-icon color="accent"><mat-icon color="accent"><fa-icon icon="window-maximize"></fa-icon></mat-icon></mat-icon>
-          <mat-placeholder>{{ 'anms.settings.animations.page' | translate }}
-          </mat-placeholder>
+          <span>{{ 'anms.settings.animations.page' | translate }}
+          </span>
           <mat-slide-toggle
             matTooltip="Sorry, this feature is disabled in IE, EDGE and Safari"
             matTooltipPosition="before"
@@ -84,8 +84,8 @@
         </div>
         <div class="icon-form-field">
           <mat-icon color="accent"><fa-icon icon="stream" color="accent"></fa-icon></mat-icon>
-          <mat-placeholder>{{ 'anms.settings.animations.elements' | translate }}
-          </mat-placeholder>
+          <span>{{ 'anms.settings.animations.elements' | translate }}
+          </span>
           <mat-slide-toggle
             [checked]="settings.elementsAnimations"
             (change)="onElementsAnimationsToggle($event)">

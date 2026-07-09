@@ -13,6 +13,7 @@ import { ROUTE_ANIMATIONS_ELEMENTS } from '../../../../core/animations/route.ani
 import { User, UserService } from '../user.service';
 
 @Component({
+  standalone: false,
   selector: 'anms-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
@@ -24,7 +25,10 @@ export class UserComponent implements OnInit {
   users$: Observable<User[]> | undefined;
   isEdit$: Observable<{ value: boolean }> | undefined;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.users$ = this.userService.users$;

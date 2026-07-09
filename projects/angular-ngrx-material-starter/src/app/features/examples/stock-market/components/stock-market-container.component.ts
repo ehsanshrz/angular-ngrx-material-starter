@@ -11,6 +11,7 @@ import { StockMarketState } from '../stock-market.model';
 import { State } from '../../examples.state';
 
 @Component({
+  standalone: false,
   selector: 'anms-stock-market',
   templateUrl: './stock-market-container.component.html',
   styleUrls: ['./stock-market-container.component.scss'],

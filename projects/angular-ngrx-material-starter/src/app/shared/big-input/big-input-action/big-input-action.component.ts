@@ -9,6 +9,7 @@ import {
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
+  standalone: false,
   selector: 'anms-big-input-action',
   templateUrl: './big-input-action.component.html',
   styleUrls: ['./big-input-action.component.scss'],

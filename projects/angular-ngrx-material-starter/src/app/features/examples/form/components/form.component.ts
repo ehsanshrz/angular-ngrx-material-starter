@@ -16,6 +16,7 @@ import { Form } from '../form.model';
 import { State } from '../../examples.state';
 
 @Component({
+  standalone: false,
   selector: 'anms-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
@@ -42,7 +43,7 @@ export class FormComponent implements OnInit {
     rating: [0, Validators.required]
   });
 
-  formValueChanges$: Observable<Form> | undefined;
+  formValueChanges$: Observable<unknown> | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -53,12 +54,16 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     this.formValueChanges$ = this.form.valueChanges.pipe(
-      filter((form: Form) => form.autosave),
-      tap((updatedForm) => this.update(updatedForm))
+      filter((form) => !!form.autosave),
+      tap((updatedForm) => this.update(updatedForm as unknown as Form))
     );
     this.store
       .pipe(select(selectFormState), take(1))
-      .subscribe((form) => this.form.patchValue(form.form));
+      .subscribe((form) =>
+        this.form.patchValue(
+          form.form as unknown as Parameters<typeof this.form.patchValue>[0]
+        )
+      );
   }
 
   update(form: Form) {
@@ -66,7 +71,9 @@ export class FormComponent implements OnInit {
   }
 
   save() {
-    this.store.dispatch(actionFormUpdate({ form: this.form.value }));
+    this.store.dispatch(
+      actionFormUpdate({ form: this.form.value as unknown as Form })
+    );
   }
 
   submit() {

@@ -3,12 +3,16 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
+  standalone: false,
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[rtl]'
 })
 export class RtlSupportDirective implements OnInit, OnDestroy {
   private subscription: Subscription | undefined;
-  constructor(private el: ElementRef, public translate: TranslateService) {
+  constructor(
+    private el: ElementRef,
+    public translate: TranslateService
+  ) {
     el.nativeElement.style.textAlign =
       translate.currentLang === 'he' || translate.currentLang === 'ar'
         ? 'right'

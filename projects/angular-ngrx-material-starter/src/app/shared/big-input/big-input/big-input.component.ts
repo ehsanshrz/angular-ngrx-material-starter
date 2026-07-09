@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'anms-big-input',
   templateUrl: './big-input.component.html',
   styleUrls: ['./big-input.component.scss'],

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'anms-child',
   templateUrl: './child.component.html',
   styleUrls: ['./child.component.scss'],

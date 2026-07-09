@@ -23,6 +23,7 @@ import {
 } from '../core/settings/settings.actions';
 
 @Component({
+  standalone: false,
   selector: 'anms-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
