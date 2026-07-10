@@ -6,6 +6,7 @@ import {
 } from '../../../../core/core.module';
 
 @Component({
+  standalone: false,
   selector: 'anms-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],

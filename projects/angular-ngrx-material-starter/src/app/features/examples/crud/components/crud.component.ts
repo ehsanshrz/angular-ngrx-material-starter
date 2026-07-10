@@ -13,6 +13,7 @@ import { actionBooksDeleteOne, actionBooksUpsertOne } from '../books.actions';
 import { selectSelectedBook, selectAllBooks } from '../books.selectors';
 
 @Component({
+  standalone: false,
   selector: 'anms-crud',
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.scss'],
@@ -77,7 +78,7 @@ export class CrudComponent {
 
   save() {
     if (this.bookFormGroup.valid) {
-      const book = this.bookFormGroup.value;
+      const book = this.bookFormGroup.value as Book;
       this.store.dispatch(actionBooksUpsertOne({ book }));
       this.isEditing = false;
       this.router.navigate(['examples/crud', book.id]);

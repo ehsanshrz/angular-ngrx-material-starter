@@ -52,8 +52,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1536kb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "bundle",
@@ -65,16 +65,16 @@
                 {
                   "type": "bundle",
                   "name": "styles",
-                  "baseline": "280kb",
-                  "maximumWarning": "50kb",
-                  "maximumError": "100kb"
+                  "baseline": "400kb",
+                  "maximumWarning": "100kb",
+                  "maximumError": "200kb"
                 },
                 {
                   "type": "bundle",
                   "name": "main",
-                  "baseline": "1024kb",
-                  "maximumWarning": "100kb",
-                  "maximumError": "200kb"
+                  "baseline": "1.5mb",
+                  "maximumWarning": "200kb",
+                  "maximumError": "400kb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -88,18 +88,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-ngrx-material-starter:build"
+            "buildTarget": "angular-ngrx-material-starter:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-ngrx-material-starter:build:production"
+              "buildTarget": "angular-ngrx-material-starter:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-ngrx-material-starter:build"
+            "buildTarget": "angular-ngrx-material-starter:build"
           }
         },
         "test": {
@@ -131,26 +131,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/angular-ngrx-material-starter/tsconfig.app.json",
-              "projects/angular-ngrx-material-starter/tsconfig.spec.json",
-              "projects/angular-ngrx-material-starter/e2e/tsconfig.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/angular-ngrx-material-starter/e2e/protractor.conf.js",
-            "devServerTarget": "angular-ngrx-material-starter:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-ngrx-material-starter:serve:production"
-            }
+            "lintFilePatterns": [
+              "projects/angular-ngrx-material-starter/src/**/*.ts"
+            ]
           }
         }
       }

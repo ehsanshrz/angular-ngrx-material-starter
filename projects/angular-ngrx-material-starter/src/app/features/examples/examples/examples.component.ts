@@ -10,6 +10,7 @@ import {
 import { State } from '../examples.state';
 
 @Component({
+  standalone: false,
   selector: 'anms-examples',
   templateUrl: './examples.component.html',
   styleUrls: ['./examples.component.scss'],

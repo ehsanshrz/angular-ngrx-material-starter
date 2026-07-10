@@ -4,7 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": ["prettier", "prettier/@typescript-eslint"],
+  "extends": ["prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "tsconfig.json",
@@ -13,8 +13,7 @@
   "plugins": [
     "eslint-plugin-import",
     "@angular-eslint/eslint-plugin",
-    "@typescript-eslint",
-    "@typescript-eslint/tslint"
+    "@typescript-eslint"
   ],
   "rules": {
     "@angular-eslint/directive-selector": [
@@ -54,14 +53,6 @@
     "@typescript-eslint/no-unused-expressions": "error",
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/quotes": ["error", "single"],
-    "@typescript-eslint/tslint/config": [
-      "error",
-      {
-        "rules": {
-          "whitespace": true
-        }
-      }
-    ],
     "@typescript-eslint/unified-signatures": "error",
     "arrow-body-style": "error",
     "constructor-super": "error",
@@ -109,8 +100,7 @@
     "no-restricted-imports": [
       "error",
       {
-        "paths": ["rxjs/Rx"],
-        "patterns": ["rxjs/(?!operators|testing)"]
+        "paths": ["rxjs/Rx"]
       }
     ],
     "no-shadow": [

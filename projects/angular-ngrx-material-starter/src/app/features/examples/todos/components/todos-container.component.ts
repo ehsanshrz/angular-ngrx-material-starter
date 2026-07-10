@@ -17,6 +17,7 @@ import { selectTodos, selectRemoveDoneTodosDisabled } from '../todos.selectors';
 import { State } from '../../examples.state';
 
 @Component({
+  standalone: false,
   selector: 'anms-todos',
   templateUrl: './todos-container.component.html',
   styleUrls: ['./todos-container.component.scss'],
