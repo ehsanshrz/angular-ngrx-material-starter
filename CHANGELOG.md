@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [21.0.0](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v12.4.0...v21.0.0) (2026-08-30)
+
+### Features
+
+- **workspace:** upgrade Angular 12 to 21, NgRx to 21, and all compatible packages ([ad7535b](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/ad7535bc7b6844b9bb870166b4264746806e291d)), closes [#581](https://github.com/tomastrajan/angular-ngrx-material-starter/issues/581)
+
+### Breaking Changes
+
+- Angular updated from v12 to v21; follow the [Angular Update Guide](https://update.angular.io/) for migration steps
+- NgRx updated from v12 to v21
+- TypeScript updated from v4 to v6
+- RxJS updated from v6 to v7
+- All components now require `standalone: false` (or migration to standalone components)
+
 ## [12.4.0](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v12.3.1...v12.4.0) (2021-10-04)
 
 ### Features
