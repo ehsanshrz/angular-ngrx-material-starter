@@ -1,4 +1,4 @@
-# Angular 12, NgRx and Angular Material Starter
+# Angular 21, NgRx and Angular Material Starter
 
 by [@tomastrajan](https://twitter.com/tomastrajan)
 
